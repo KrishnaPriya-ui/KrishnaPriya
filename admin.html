@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Panel — Krishna Priya Fashion</title>
+<meta name="description" content="Admin dashboard for Krishna Priya Fashion — manage products, enquiries, and orders." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      cream:'#FDFBF7', beige:'#F1E9DD', sand:'#E5D9C6', rose:'#C9A6A0', 'rose-deep':'#A87A72',
+      terracotta:'#B96E4B', 'terracotta-deep':'#8F5232', gold:'#B08D57', 'gold-soft':'#D4B483',
+      charcoal:'#1A1A1A', 'charcoal-soft':'#3D3A36', muted:'#8A8278',
+    },
+    fontFamily: { display:['"Playfair Display"','serif'], body:['Inter','sans-serif'] },
+  }},
+};
+</script>
+<link rel="stylesheet" href="css/global.css" />
+<link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="bg-cream text-charcoal">
+
+<div id="header-slot"></div>
+
+<!-- Login -->
+<div id="adminLogin" class="max-w-md mx-auto px-6 py-20">
+  <div class="bg-cream border border-sand rounded-2xl p-8 text-center">
+    <div class="w-14 h-14 rounded-full bg-terracotta flex items-center justify-center text-cream mx-auto mb-5"><i data-lucide="lock" class="w-6 h-6"></i></div>
+    <h1 class="font-display text-2xl mb-2">Admin Panel</h1>
+    <p class="text-sm text-muted mb-6">Enter your passcode to continue.</p>
+    <form onsubmit="adminLogin(event)" class="space-y-4">
+      <input id="adminPass" type="password" placeholder="Passcode" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm text-center tracking-widest" />
+      <p id="adminLoginError" class="hidden text-sm text-rose-deep"></p>
+      <button class="w-full bg-charcoal hover:bg-charcoal-soft text-cream py-3 rounded-xl text-sm font-medium transition">Unlock</button>
+    </form>
+    <p class="text-xs text-muted mt-4">Default passcode: <span class="font-mono">admin123</span></p>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="adminDashboard" class="hidden">
+  <div class="bg-charcoal text-cream">
+    <div class="max-w-7xl mx-auto px-6 py-10 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h1 class="font-display text-3xl">Admin Dashboard</h1>
+        <p class="text-cream/60 text-sm mt-1">Manage products, enquiries and orders.</p>
+      </div>
+      <button onclick="adminLogout()" class="text-sm border border-cream/30 hover:bg-cream hover:text-charcoal px-5 py-2.5 rounded-full transition flex items-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i> Logout</button>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 pt-8">
+    <div class="flex flex-wrap gap-2 border-b border-sand">
+      <button onclick="setAdminTab('products')" id="atab-products" class="admin-tab px-5 py-3 text-sm font-medium border-b-2 border-transparent">Products</button>
+      <button onclick="setAdminTab('reviews')" id="atab-reviews" class="admin-tab px-5 py-3 text-sm font-medium border-b-2 border-transparent">Reviews</button>
+      <button onclick="setAdminTab('enquiries')" id="atab-enquiries" class="admin-tab px-5 py-3 text-sm font-medium border-b-2 border-transparent">Enquiries <span id="enqCount" class="text-xs text-muted"></span></button>
+      <button onclick="setAdminTab('orders')" id="atab-orders" class="admin-tab px-5 py-3 text-sm font-medium border-b-2 border-transparent">Orders <span id="ordCount" class="text-xs text-muted"></span></button>
+      <button onclick="setAdminTab('settings')" id="atab-settings" class="admin-tab px-5 py-3 text-sm font-medium border-b-2 border-transparent">Settings</button>
+    </div>
+  </div>
+
+  <!-- Products tab -->
+  <div id="adminTab-products" class="admin-tabpanel max-w-7xl mx-auto px-6 py-8">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="font-display text-2xl">Product Manager</h2>
+      <button onclick="openProductModal()" class="bg-terracotta hover:bg-terracotta-deep text-cream px-5 py-2.5 rounded-full text-sm font-medium transition flex items-center gap-2"><i data-lucide="plus" class="w-4 h-4"></i> Add Product</button>
+    </div>
+    <div class="overflow-x-auto rounded-2xl border border-sand">
+      <table class="w-full text-sm">
+        <thead class="bg-beige text-left text-charcoal-soft">
+          <tr>
+            <th class="p-4 font-medium">Product</th>
+            <th class="p-4 font-medium">Category</th>
+            <th class="p-4 font-medium">Price</th>
+            <th class="p-4 font-medium">Disc.</th>
+            <th class="p-4 font-medium">Avail.</th>
+            <th class="p-4 font-medium text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="adminProductRows"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Reviews tab -->
+  <div id="adminTab-reviews" class="admin-tabpanel hidden max-w-7xl mx-auto px-6 py-8">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="font-display text-2xl">Review Manager</h2>
+      <button onclick="openReviewModal()" class="bg-terracotta hover:bg-terracotta-deep text-cream px-5 py-2.5 rounded-full text-sm font-medium transition flex items-center gap-2"><i data-lucide="plus" class="w-4 h-4"></i> Add Review</button>
+    </div>
+    <div class="overflow-x-auto rounded-2xl border border-sand">
+      <table class="w-full text-sm">
+        <thead class="bg-beige text-left text-charcoal-soft">
+          <tr>
+            <th class="p-4 font-medium">Customer</th>
+            <th class="p-4 font-medium">Rating</th>
+            <th class="p-4 font-medium">Review</th>
+            <th class="p-4 font-medium">Source</th>
+            <th class="p-4 font-medium text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="adminReviewRows"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Enquiries tab -->
+  <div id="adminTab-enquiries" class="admin-tabpanel hidden max-w-7xl mx-auto px-6 py-8">
+    <h2 class="font-display text-2xl mb-6">Enquiries Dashboard</h2>
+    <div class="overflow-x-auto rounded-2xl border border-sand">
+      <table class="w-full text-sm">
+        <thead class="bg-beige text-left text-charcoal-soft">
+          <tr>
+            <th class="p-4 font-medium">Date</th>
+            <th class="p-4 font-medium">Name</th>
+            <th class="p-4 font-medium">Phone</th>
+            <th class="p-4 font-medium">Category</th>
+            <th class="p-4 font-medium">Message</th>
+            <th class="p-4 font-medium">Status</th>
+            <th class="p-4 font-medium">Notes</th>
+          </tr>
+        </thead>
+        <tbody id="adminEnquiryRows"></tbody>
+      </table>
+    </div>
+    <div id="enquiriesEmpty" class="hidden text-center py-16 text-muted">
+      <i data-lucide="inbox" class="w-10 h-10 mx-auto mb-3"></i>
+      <p>No enquiries yet. Form submissions will appear here.</p>
+    </div>
+  </div>
+
+  <!-- Orders tab -->
+  <div id="adminTab-orders" class="admin-tabpanel hidden max-w-7xl mx-auto px-6 py-8">
+    <h2 class="font-display text-2xl mb-6">Orders Dashboard</h2>
+    <div class="overflow-x-auto rounded-2xl border border-sand">
+      <table class="w-full text-sm">
+        <thead class="bg-beige text-left text-charcoal-soft">
+          <tr>
+            <th class="p-4 font-medium">Date</th>
+            <th class="p-4 font-medium">Customer</th>
+            <th class="p-4 font-medium">Phone</th>
+            <th class="p-4 font-medium">Items</th>
+            <th class="p-4 font-medium">Total</th>
+            <th class="p-4 font-medium">Status</th>
+          </tr>
+        </thead>
+        <tbody id="adminOrderRows"></tbody>
+      </table>
+    </div>
+    <div id="ordersEmpty" class="hidden text-center py-16 text-muted">
+      <i data-lucide="package-open" class="w-10 h-10 mx-auto mb-3"></i>
+      <p>No orders yet. Orders from the catalog will appear here.</p>
+    </div>
+  </div>
+
+  <!-- Settings tab -->
+  <div id="adminTab-settings" class="admin-tabpanel hidden max-w-7xl mx-auto px-6 py-8">
+    <h2 class="font-display text-2xl mb-6">Settings</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-cream border border-sand rounded-2xl p-6">
+        <h3 class="font-display text-xl mb-2">Google Apps Script URL</h3>
+        <p class="text-sm text-muted mb-4">Paste your Web App URL to send enquiries and orders to Google Sheets.</p>
+        <input id="gasUrlInput" type="url" placeholder="https://script.google.com/macros/s/…/exec" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm mb-3" />
+        <button onclick="saveGasUrl()" class="bg-charcoal hover:bg-charcoal-soft text-cream px-5 py-2.5 rounded-full text-sm font-medium transition">Save URL</button>
+        <p id="gasStatus" class="text-sm mt-3"></p>
+      </div>
+      <div class="bg-cream border border-sand rounded-2xl p-6">
+        <h3 class="font-display text-xl mb-2">Change Passcode</h3>
+        <p class="text-sm text-muted mb-4">Update the admin panel passcode.</p>
+        <input id="newPassInput" type="password" placeholder="New passcode" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm mb-3" />
+        <button onclick="changePass()" class="bg-charcoal hover:bg-charcoal-soft text-cream px-5 py-2.5 rounded-full text-sm font-medium transition">Update Passcode</button>
+        <p id="passStatus" class="text-sm mt-3"></p>
+      </div>
+      <div class="bg-cream border border-sand rounded-2xl p-6 md:col-span-2">
+        <h3 class="font-display text-xl mb-2">Data Management</h3>
+        <p class="text-sm text-muted mb-4">Export or clear locally stored enquiries and orders.</p>
+        <div class="flex flex-wrap gap-3">
+          <button onclick="exportData()" class="border border-charcoal hover:bg-charcoal hover:text-cream px-5 py-2.5 rounded-full text-sm font-medium transition flex items-center gap-2"><i data-lucide="download" class="w-4 h-4"></i> Export JSON</button>
+          <button onclick="clearData()" class="border border-rose-deep text-rose-deep hover:bg-rose-deep hover:text-cream px-5 py-2.5 rounded-full text-sm font-medium transition flex items-center gap-2"><i data-lucide="trash-2" class="w-4 h-4"></i> Clear Enquiries &amp; Orders</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Review modal (admin only) -->
+<div id="reviewModal" class="hidden fixed inset-0 z-50 bg-charcoal/50 modal-bg flex items-center justify-center p-4" onclick="closeReviewModal(event)">
+  <div class="bg-cream rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto modal-card" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between p-5 border-b border-sand">
+      <h3 id="reviewModalTitle" class="font-display text-xl">Add Review</h3>
+      <button onclick="closeReviewModal()"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <form id="reviewForm" onsubmit="saveReview(event)" class="p-5 space-y-4">
+      <input type="hidden" name="id" />
+      <div>
+        <label class="block text-sm mb-1.5 text-charcoal-soft">Customer Name</label>
+        <input required type="text" name="name" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm" />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm mb-1.5 text-charcoal-soft">Rating</label>
+          <select name="rating" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm">
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="2">2 Stars</option>
+            <option value="1">1 Star</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm mb-1.5 text-charcoal-soft">Source</label>
+          <input type="text" name="source" value="Google Review" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm mb-1.5 text-charcoal-soft">Review</label>
+        <textarea required name="text" rows="4" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm"></textarea>
+      </div>
+      <button class="w-full bg-charcoal hover:bg-charcoal-soft text-cream py-3 rounded-xl text-sm font-medium transition">Save Review</button>
+    </form>
+  </div>
+</div>
+
+<!-- Product modal (admin only) -->
+<div id="productModal" class="hidden fixed inset-0 z-50 bg-charcoal/50 modal-bg flex items-center justify-center p-4" onclick="closeProductModal(event)">
+  <div class="bg-cream rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto modal-card" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between p-5 border-b border-sand">
+      <h3 id="productModalTitle" class="font-display text-xl">Add Product</h3>
+      <button onclick="closeProductModal()"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <form id="productForm" onsubmit="saveProduct(event)" class="p-5 space-y-4">
+      <input type="hidden" name="id" />
+      <div>
+        <label class="block text-sm mb-1.5 text-charcoal-soft">Product Name</label>
+        <input required type="text" name="name" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm" />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm mb-1.5 text-charcoal-soft">Category</label>
+          <select name="category" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm">
+            <option>Ethnic Wear</option><option>Western Wear</option><option>Nightwear</option><option>Cosmetics & Jewelry</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm mb-1.5 text-charcoal-soft">Brand</label>
+          <input type="text" name="brand" placeholder="e.g. NUON" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm" />
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm mb-1.5 text-charcoal-soft">Price (₹)</label>
+          <input required type="number" name="price" min="0" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1.5 text-charcoal-soft">Discount %</label>
+          <input type="number" name="discount" min="0" max="90" value="0" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm" />
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm mb-1.5 text-charcoal-soft">Image URL (primary)</label>
+          <input required type="url" name="image" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1.5 text-charcoal-soft">Image URL (hover)</label>
+          <input type="url" name="image2" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm mb-1.5 text-charcoal-soft">Description</label>
+        <textarea name="desc" rows="2" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm"></textarea>
+      </div>
+      <div class="flex items-center gap-2">
+        <input type="checkbox" name="featured" class="w-4 h-4 accent-terracotta" />
+        <label class="text-sm text-charcoal-soft">Show in Featured Showcase</label>
+      </div>
+      <button class="w-full bg-charcoal hover:bg-charcoal-soft text-cream py-3 rounded-xl text-sm font-medium transition">Save Product</button>
+    </form>
+  </div>
+</div>
+
+<div id="footer-slot"></div>
+<div id="overlay-slot"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

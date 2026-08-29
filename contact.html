@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enquiry & Contact — Krishna Priya Fashion</title>
+<meta name="description" content="Send an enquiry or reach Krishna Priya Fashion directly via phone or WhatsApp. Visit us at VivaCity Mall, Jagatpura, Jaipur." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      cream:'#FDFBF7', beige:'#F1E9DD', sand:'#E5D9C6', rose:'#C9A6A0', 'rose-deep':'#A87A72',
+      terracotta:'#B96E4B', 'terracotta-deep':'#8F5232', gold:'#B08D57', 'gold-soft':'#D4B483',
+      charcoal:'#1A1A1A', 'charcoal-soft':'#3D3A36', muted:'#8A8278',
+    },
+    fontFamily: { display:['"Playfair Display"','serif'], body:['Inter','sans-serif'] },
+  }},
+};
+</script>
+<link rel="stylesheet" href="css/global.css" />
+<link rel="stylesheet" href="css/contact.css" />
+</head>
+<body class="bg-cream text-charcoal">
+
+<div id="header-slot"></div>
+
+<div class="bg-beige border-b border-sand">
+  <div class="max-w-7xl mx-auto px-6 py-12 text-center">
+    <p class="text-terracotta tracking-[0.25em] uppercase text-xs mb-3">We'd love to hear from you</p>
+    <h1 class="font-display text-4xl sm:text-5xl">Enquiry &amp; Contact</h1>
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-2 gap-12">
+  <div>
+    <h2 class="font-display text-2xl mb-2">Send an Enquiry</h2>
+    <p class="text-charcoal-soft text-sm mb-6">Tell us what you're looking for and we'll get back to you.</p>
+    <form id="enquiryForm" onsubmit="submitEnquiry(event)" class="space-y-4">
+      <div>
+        <label class="block text-sm mb-1.5 text-charcoal-soft">Name</label>
+        <input required type="text" name="name" placeholder="Your name" class="w-full bg-cream border border-sand rounded-xl px-4 py-3 text-sm" />
+      </div>
+      <div>
+        <label class="block text-sm mb-1.5 text-charcoal-soft">Phone Number</label>
+        <input required type="tel" name="phone" placeholder="+91 …" class="w-full bg-cream border border-sand rounded-xl px-4 py-3 text-sm" />
+      </div>
+      <div>
+        <label class="block text-sm mb-1.5 text-charcoal-soft">Category of Interest</label>
+        <select name="category" class="w-full bg-cream border border-sand rounded-xl px-4 py-3 text-sm">
+          <option>Ethnic Wear</option>
+          <option>Western Wear</option>
+          <option>Nightwear</option>
+          <option>Cosmetics & Jewelry</option>
+          <option>General</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm mb-1.5 text-charcoal-soft">Message</label>
+        <textarea required name="message" rows="4" placeholder="How can we help?" class="w-full bg-cream border border-sand rounded-xl px-4 py-3 text-sm"></textarea>
+      </div>
+      <button type="submit" class="bg-terracotta hover:bg-terracotta-deep text-cream px-7 py-3 rounded-full text-sm font-medium transition flex items-center gap-2">
+        <i data-lucide="send" class="w-4 h-4"></i> Submit Enquiry
+      </button>
+    </form>
+  </div>
+
+  <div class="space-y-6">
+    <div class="bg-charcoal text-cream rounded-2xl p-8">
+      <h3 class="font-display text-2xl mb-6">Reach us directly</h3>
+      <a href="tel:+919251200453" class="flex items-center gap-4 mb-5 hover:text-gold-soft transition">
+        <div class="w-11 h-11 rounded-full bg-cream/10 flex items-center justify-center"><i data-lucide="phone" class="w-5 h-5"></i></div>
+        <div><p class="text-xs text-cream/50">Call us</p><p class="font-medium">+91 92512 00453</p></div>
+      </a>
+      <a href="https://wa.me/917062601601" target="_blank" class="flex items-center gap-4 hover:text-gold-soft transition">
+        <div class="w-11 h-11 rounded-full bg-cream/10 flex items-center justify-center"><i data-lucide="message-circle" class="w-5 h-5"></i></div>
+        <div><p class="text-xs text-cream/50">WhatsApp</p><p class="font-medium">+91 70626 01601</p></div>
+      </a>
+    </div>
+    <div class="bg-beige rounded-2xl p-8">
+      <h3 class="font-display text-2xl mb-4">Boutique Hours</h3>
+      <div class="flex items-center gap-3 text-charcoal-soft text-sm mb-2"><i data-lucide="clock" class="w-4 h-4 text-terracotta"></i> Monday – Sunday</div>
+      <p class="text-charcoal-soft text-sm ml-7">10:30 AM – 9:00 PM</p>
+      <div class="mt-5 flex items-center gap-3 text-charcoal-soft text-sm mb-1"><i data-lucide="map-pin" class="w-4 h-4 text-terracotta"></i> Address</div>
+      <p class="text-charcoal-soft text-sm ml-7">K-01, Ground Floor, VivaCity Mall, Near Akshaya Patra Chauraha, Mahal Road, Hare Krishna Marg, Jagatpura, Jaipur, Rajasthan 302017</p>
+    </div>
+    <div class="rounded-2xl overflow-hidden border border-sand h-56">
+      <iframe title="Map" src="https://www.google.com/maps?q=VivaCity+Mall+Jagatpura+Jaipur&output=embed" class="w-full h-full" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div id="footer-slot"></div>
+<div id="overlay-slot"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

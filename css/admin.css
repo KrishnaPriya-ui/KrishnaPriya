@@ -1,0 +1,5 @@
+/* ============================================================
+   Admin Page — Specific Styles
+   ============================================================ */
+.admin-tab { border-bottom: 2px solid transparent; }
+.admin-tab.active { border-color: #B96E4B; color: #B96E4B; }

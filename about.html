@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About Us — Krishna Priya Fashion</title>
+<meta name="description" content="Krishna Priya Fashion is a women-owned designer boutique in VivaCity Mall, Jagatpura, Jaipur. Traditional and contemporary fashion curated for the modern woman." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      cream:'#FDFBF7', beige:'#F1E9DD', sand:'#E5D9C6', rose:'#C9A6A0', 'rose-deep':'#A87A72',
+      terracotta:'#B96E4B', 'terracotta-deep':'#8F5232', gold:'#B08D57', 'gold-soft':'#D4B483',
+      charcoal:'#1A1A1A', 'charcoal-soft':'#3D3A36', muted:'#8A8278',
+    },
+    fontFamily: { display:['"Playfair Display"','serif'], body:['Inter','sans-serif'] },
+  }},
+};
+</script>
+<link rel="stylesheet" href="css/global.css" />
+<link rel="stylesheet" href="css/about.css" />
+</head>
+<body class="bg-cream text-charcoal">
+
+<div id="header-slot"></div>
+
+<div class="bg-charcoal text-cream">
+  <div class="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
+    <div>
+      <p class="text-gold-soft tracking-[0.25em] uppercase text-xs mb-3">About Us</p>
+      <h1 class="font-display text-4xl sm:text-6xl leading-tight mb-6">Crafted in Jaipur, <br>worn everywhere.</h1>
+      <p class="text-cream/80 leading-relaxed mb-5">Krishna Priya Fashion is a women-owned designer boutique located in VivaCity Mall, Jagatpura. We curate a refined selection of traditional and contemporary clothing — from cotton kurtis and oversized suits to elegant nightwear and statement partywear.</p>
+      <p class="text-cream/80 leading-relaxed mb-8">Inspired by labels like NUON, Bombay Paisley, Zuba and LUNA BLISS, our edit balances minimal luxury with everyday comfort. Every visit is a personal styling session.</p>
+      <div class="grid grid-cols-2 gap-6">
+        <div><p class="font-display text-3xl text-gold-soft">100%</p><p class="text-sm text-cream/60">Women-Owned</p></div>
+        <div><p class="font-display text-3xl text-gold-soft">7 Days</p><p class="text-sm text-cream/60">Open Weekly</p></div>
+        <div><p class="font-display text-3xl text-gold-soft">4 Categories</p><p class="text-sm text-cream/60">Curated Edit</p></div>
+        <div><p class="font-display text-3xl text-gold-soft">Jaipur</p><p class="text-sm text-cream/60">Free Delivery</p></div>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <img src="https://images.pexels.com/photos/8306368/pexels-photo-8306368.jpeg?auto=compress&cs=tinysrgb&w=600" class="rounded-2xl aspect-[3/4] object-cover" />
+      <img src="https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg?auto=compress&cs=tinysrgb&w=600" class="rounded-2xl aspect-[3/4] object-cover mt-8" />
+    </div>
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-6 py-20">
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="bg-beige rounded-2xl p-8 text-center">
+      <i data-lucide="sparkles" class="w-8 h-8 text-terracotta mx-auto mb-4"></i>
+      <h3 class="font-display text-xl mb-2">Handpicked Quality</h3>
+      <p class="text-sm text-charcoal-soft">Every garment is selected for fabric, finish and fit — no compromises.</p>
+    </div>
+    <div class="bg-beige rounded-2xl p-8 text-center">
+      <i data-lucide="heart-handshake" class="w-8 h-8 text-terracotta mx-auto mb-4"></i>
+      <h3 class="font-display text-xl mb-2">Personal Styling</h3>
+      <p class="text-sm text-charcoal-soft">Friendly, expert guidance to help you find pieces that feel like you.</p>
+    </div>
+    <div class="bg-beige rounded-2xl p-8 text-center">
+      <i data-lucide="accessibility" class="w-8 h-8 text-terracotta mx-auto mb-4"></i>
+      <h3 class="font-display text-xl mb-2">Accessible &amp; Inclusive</h3>
+      <p class="text-sm text-charcoal-soft">Wheelchair accessible store with in-store pickup and delivery options.</p>
+    </div>
+  </div>
+</div>
+
+<div class="bg-beige">
+  <div class="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="rounded-2xl overflow-hidden border border-sand min-h-[360px]">
+      <iframe title="Map" src="https://www.google.com/maps?q=VivaCity+Mall+Jagatpura+Jaipur&output=embed" class="w-full h-full min-h-[360px]" loading="lazy"></iframe>
+    </div>
+    <div>
+      <h2 class="font-display text-3xl sm:text-4xl mb-6">Plan your visit</h2>
+      <div class="space-y-4 text-charcoal-soft">
+        <div class="flex gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i><span>K-01, Ground Floor, VivaCity Mall, Near Akshaya Patra Chauraha / Circle, Mahal Road, Hare Krishna Marg, Jagatpura, Jaipur, Rajasthan 302017</span></div>
+        <div class="flex gap-3"><i data-lucide="phone" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i><a href="tel:+919251200453" class="hover:text-terracotta">+91 92512 00453</a></div>
+        <div class="flex gap-3"><i data-lucide="message-circle" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i><a href="https://wa.me/917062601601" target="_blank" class="hover:text-terracotta">+91 70626 01601 (WhatsApp)</a></div>
+        <div class="flex gap-3"><i data-lucide="clock" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i><span>Monday – Sunday: 10:30 AM – 9:00 PM</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer-slot"></div>
+<div id="overlay-slot"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', () => { initShared(); refreshIcons(); });
+</script>
+</body>
+</html>

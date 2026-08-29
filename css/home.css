@@ -1,0 +1,85 @@
+/* ============================================================
+   Home Page — Specific Styles
+   ============================================================ */
+.hero-dots button.active { background: #FDFBF7 !important; }
+
+.review-stats {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 780px;
+  margin: 0 auto 1.5rem;
+}
+
+.review-stat-row {
+  display: grid;
+  grid-template-columns: 72px 1fr 28px;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(253, 251, 247, 0.9);
+  font-size: 0.8rem;
+}
+
+.review-stat-label,
+.review-stat-value {
+  font-weight: 500;
+}
+
+.review-stat-bar {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.review-stat-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #D4B483, #F1E9DD);
+}
+
+.review-marquee-container {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.review-marquee-track {
+  width: max-content;
+  animation: review-marquee 32s linear infinite;
+}
+
+.review-marquee-group {
+  display: flex;
+  gap: 1.2rem;
+  width: max-content;
+}
+
+.review-card {
+  width: min(320px, 78vw);
+  background: rgba(61, 58, 54, 0.95);
+  border: 1px solid rgba(229, 217, 198, 0.18);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  flex-shrink: 0;
+}
+
+@keyframes review-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 640px) {
+  .review-stat-row {
+    grid-template-columns: 60px 1fr 22px;
+    gap: 0.5rem;
+  }
+
+  .review-card {
+    width: min(280px, 78vw);
+    padding: 1.25rem;
+  }
+}
