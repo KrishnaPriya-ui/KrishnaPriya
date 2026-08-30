@@ -168,7 +168,35 @@ function setOrders(o) {
   persistCollectionToFirebase('orders', o);
 }
 function getGasUrl() { return localStorage.getItem('kp_gas_url') || ''; }
-function getAdminPass() { return localStorage.getItem('kp_admin_pass') || 'admin123'; }
+
+const adminSettingsRef = () => {
+  const db = initializeFirebase();
+  return db && typeof db.collection === 'function' ? db.collection('settings').doc('admin') : null;
+};
+
+async function hashAdminPasscode(passcode) {
+  const encoded = new TextEncoder().encode(passcode);
+  const digest = await crypto.subtle.digest('SHA-256', encoded);
+  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
+async function getAdminPasscode() {
+  const settingsRef = adminSettingsRef();
+  if (!settingsRef) throw new Error('Firebase is not available.');
+  const snapshot = await settingsRef.get();
+  const passcodeHash = snapshot.exists && snapshot.data().passcodeHash;
+  if (!passcodeHash) throw new Error('Admin passcode is not configured in Firebase.');
+  return passcodeHash;
+}
+
+async function saveAdminPasscode(passcode) {
+  const settingsRef = adminSettingsRef();
+  if (!settingsRef) throw new Error('Firebase is not available.');
+  await settingsRef.set({
+    passcodeHash: await hashAdminPasscode(passcode),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  }, { merge: true });
+}
 
 /* ---- Helpers ---- */
 function finalPrice(p) { return Math.round(p.price * (1 - (p.discount || 0) / 100)); }

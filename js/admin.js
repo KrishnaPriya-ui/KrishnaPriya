@@ -15,17 +15,26 @@ function initAdmin() {
   }
 }
 
-function adminLogin(e) {
+async function adminLogin(e) {
   e.preventDefault();
   const val = document.getElementById('adminPass').value;
   const err = document.getElementById('adminLoginError');
-  if (val === getAdminPass()) {
-    adminAuthed = true;
-    err.classList.add('hidden');
-    initAdmin();
-  } else {
+  const button = e.target.querySelector('button');
+  button.disabled = true;
+  try {
+    if (await hashAdminPasscode(val) === await getAdminPasscode()) {
+      adminAuthed = true;
+      err.classList.add('hidden');
+      initAdmin();
+      return;
+    }
     err.textContent = 'Incorrect passcode.';
     err.classList.remove('hidden');
+  } catch (error) {
+    err.textContent = error.message;
+    err.classList.remove('hidden');
+  } finally {
+    button.disabled = false;
   }
 }
 
@@ -243,13 +252,18 @@ function saveGasUrl() {
   toast('Google Sheets URL saved');
 }
 
-function changePass() {
+async function changePass() {
   const v = document.getElementById('newPassInput').value.trim();
-  if (v.length < 4) { document.getElementById('passStatus').textContent = 'Passcode must be at least 4 characters.'; return; }
-  localStorage.setItem('kp_admin_pass', v);
-  document.getElementById('passStatus').textContent = 'Passcode updated.';
-  document.getElementById('newPassInput').value = '';
-  toast('Passcode changed');
+  const status = document.getElementById('passStatus');
+  if (v.length < 4) { status.textContent = 'Passcode must be at least 4 characters.'; return; }
+  try {
+    await saveAdminPasscode(v);
+    status.textContent = 'Passcode updated for all admins.';
+    document.getElementById('newPassInput').value = '';
+    toast('Passcode changed');
+  } catch (error) {
+    status.textContent = error.message;
+  }
 }
 
 function exportData() {

@@ -17,3 +17,10 @@ test('site includes Firebase-backed dynamic data sync for products and reviews',
   assert.match(dataText, /initializeFirebase|firebase|getFirestore|collection|onSnapshot|sync/);
   assert.match(adminText, /saveProduct\(|saveReview\(|deleteProduct\(|deleteReview\(|setOrdStatus/);
 });
+
+test('admin passcode is shared through Firebase instead of localStorage', () => {
+  assert.match(dataText, /hashAdminPasscode|saveAdminPasscode|settings.*admin/s);
+  assert.match(adminText, /await hashAdminPasscode\(val\)|await getAdminPasscode\(\)/);
+  assert.doesNotMatch(dataText, /kp_admin_pass|admin123/);
+  assert.doesNotMatch(adminText, /kp_admin_pass|getAdminPass\(/);
+});
