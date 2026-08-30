@@ -175,8 +175,13 @@ const adminSettingsRef = () => {
 };
 
 async function hashAdminPasscode(passcode) {
+  const cryptoApi = (globalThis.crypto && globalThis.crypto.subtle) || (window && window.crypto && window.crypto.subtle);
+  if (!cryptoApi) {
+    throw new Error('This browser does not support Web Crypto. Please use Chrome, Edge, or Firefox on localhost/HTTPS.');
+  }
+
   const encoded = new TextEncoder().encode(passcode);
-  const digest = await crypto.subtle.digest('SHA-256', encoded);
+  const digest = await cryptoApi.digest('SHA-256', encoded);
   return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
