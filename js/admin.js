@@ -126,7 +126,8 @@ async function saveProduct(e) {
     };
     const i = products.findIndex(p => p.id === data.id);
     if (i > -1) products[i] = data; else products.push(data);
-    saveProducts(); renderAdminProducts(); renderFeatured();
+    await saveProducts();
+    renderAdminProducts(); renderFeatured();
     closeProductModal(); toast('Product saved');
   } catch (error) {
     toast(error.message);
@@ -295,8 +296,23 @@ function clearData() {
   renderAdminEnquiries(); renderAdminOrders(); toast('Enquiries & orders cleared');
 }
 
+function initAdminPassToggle() {
+  const input = document.getElementById('adminPass');
+  const button = document.getElementById('toggleAdminPass');
+  if (!input || !button) return;
+
+  button.addEventListener('click', () => {
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    button.setAttribute('aria-label', isPassword ? 'Hide passcode' : 'Show passcode');
+    button.innerHTML = isPassword ? '<i data-lucide="eye-off" class="w-4 h-4"></i>' : '<i data-lucide="eye" class="w-4 h-4"></i>';
+    refreshIcons();
+  });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   initShared();
   initAdmin();
+  initAdminPassToggle();
   refreshIcons();
 });

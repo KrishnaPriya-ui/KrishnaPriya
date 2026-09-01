@@ -6,6 +6,7 @@ const projectRoot = new URL('..', import.meta.url);
 const dataText = fs.readFileSync(new URL('js/data.js', projectRoot), 'utf8');
 const adminText = fs.readFileSync(new URL('js/admin.js', projectRoot), 'utf8');
 const sharedText = fs.readFileSync(new URL('js/shared.js', projectRoot), 'utf8');
+const adminHtmlText = fs.readFileSync(new URL('admin.html', projectRoot), 'utf8');
 const homeText = fs.readFileSync(new URL('index.html', projectRoot), 'utf8');
 
 test('review data and admin management exist for persisted homepage reviews', () => {
@@ -29,6 +30,8 @@ test('admin passcode is shared through Firebase instead of localStorage', () => 
 test('admin products support Firebase Storage uploads without duplicate featured cards', () => {
   assert.match(dataText, /uploadProductImage|firebase\.storage/);
   assert.match(adminText, /imageFile|image2File|await uploadProductImage/);
+  assert.match(adminText, /await saveProducts\(\)/);
+  assert.match(adminHtmlText, /type="submit"[^>]*>Save Product/);
   assert.match(sharedText, /products\.filter\(p => p\.featured && p\.available\)/);
   assert.doesNotMatch(sharedText, /\.concat\(products\.filter/);
 });

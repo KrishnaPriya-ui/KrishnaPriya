@@ -36,7 +36,12 @@ tailwind.config = {
     <h1 class="font-display text-2xl mb-2">Admin Panel</h1>
     <p class="text-sm text-muted mb-6">Enter your passcode to continue.</p>
     <form onsubmit="adminLogin(event)" class="space-y-4">
-      <input id="adminPass" type="password" placeholder="Passcode" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm text-center tracking-widest" />
+      <div class="relative">
+        <input id="adminPass" type="password" placeholder="Passcode" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 pr-11 text-sm text-center tracking-widest" />
+        <button type="button" id="toggleAdminPass" aria-label="Show passcode" class="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal-soft hover:text-charcoal">
+          <i data-lucide="eye" class="w-4 h-4"></i>
+        </button>
+      </div>
       <p id="adminLoginError" class="hidden text-sm text-rose-deep"></p>
       <button class="w-full bg-charcoal hover:bg-charcoal-soft text-cream py-3 rounded-xl text-sm font-medium transition">Unlock</button>
     </form>
@@ -283,7 +288,7 @@ tailwind.config = {
         <input type="checkbox" name="featured" class="w-4 h-4 accent-terracotta" />
         <label class="text-sm text-charcoal-soft">Show in Featured Showcase</label>
       </div>
-      <button class="w-full bg-charcoal hover:bg-charcoal-soft text-cream py-3 rounded-xl text-sm font-medium transition">Save Product</button>
+      <button type="submit" class="w-full bg-charcoal hover:bg-charcoal-soft text-cream py-3 rounded-xl text-sm font-medium transition">Save Product</button>
     </form>
   </div>
 </div>

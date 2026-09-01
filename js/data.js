@@ -47,7 +47,7 @@ const DEFAULT_REVIEWS = [
 ];
 
 let firebaseDb = null;
-let firebaseSyncInProgress = false;
+let firebaseSyncPromise = Promise.resolve();
 
 function initializeFirebase() {
   if (!window.firebase || !window.firebase.firestore) return null;
@@ -79,10 +79,9 @@ async function uploadProductImage(file, productId, imageType) {
 
 function persistCollectionToFirebase(name, items) {
   const collectionRef = getFirebaseCollection(name);
-  if (!collectionRef || firebaseSyncInProgress) return;
+  if (!collectionRef) return Promise.resolve();
 
-  firebaseSyncInProgress = true;
-  collectionRef.get().then(snapshot => {
+  const writePromise = firebaseSyncPromise.then(() => collectionRef.get().then(snapshot => {
     const batch = firebaseDb.batch();
     snapshot.docs.forEach(doc => batch.delete(doc.ref));
     (items || []).forEach(item => {
@@ -92,11 +91,11 @@ function persistCollectionToFirebase(name, items) {
       batch.set(collectionRef.doc(docId), raw);
     });
     return batch.commit();
-  }).catch((error) => {
+  }));
+  firebaseSyncPromise = writePromise.catch((error) => {
     console.warn('Firebase sync failed for ' + name, error);
-  }).finally(() => {
-    firebaseSyncInProgress = false;
   });
+  return writePromise;
 }
 
 function applyRemoteCollection(name, list) {
@@ -158,7 +157,7 @@ function loadProducts() {
 }
 function saveProducts() {
   localStorage.setItem('kp_products', JSON.stringify(products));
-  persistCollectionToFirebase('products', products);
+  return persistCollectionToFirebase('products', products);
 }
 function loadReviews() {
   const stored = localStorage.getItem('kp_reviews');
