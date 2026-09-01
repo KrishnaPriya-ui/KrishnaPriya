@@ -64,6 +64,19 @@ function getFirebaseCollection(name) {
   return db.collection(name);
 }
 
+async function uploadProductImage(file, productId, imageType) {
+  if (!file) return '';
+  if (!window.firebase || typeof window.firebase.storage !== 'function') {
+    throw new Error('Firebase Storage is not available.');
+  }
+  if (!file.type.startsWith('image/')) throw new Error('Please select an image file.');
+  if (file.size > 5 * 1024 * 1024) throw new Error('Each image must be smaller than 5 MB.');
+
+  const storageRef = window.firebase.storage().ref(`products/${productId}/${imageType}-${Date.now()}-${file.name}`);
+  await storageRef.put(file);
+  return storageRef.getDownloadURL();
+}
+
 function persistCollectionToFirebase(name, items) {
   const collectionRef = getFirebaseCollection(name);
   if (!collectionRef || firebaseSyncInProgress) return;

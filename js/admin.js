@@ -104,20 +104,36 @@ function closeProductModal(e) {
   document.getElementById('productModal').classList.add('hidden');
 }
 
-function saveProduct(e) {
+async function saveProduct(e) {
   e.preventDefault();
   const f = e.target;
-  const data = {
-    id: f.id.value || 'p' + Date.now(),
-    name: f.name.value, category: f.category.value, brand: f.brand.value,
-    price: parseInt(f.price.value) || 0, discount: parseInt(f.discount.value) || 0,
-    image: f.image.value, image2: f.image2.value, desc: f.desc.value,
-    featured: f.featured.checked, available: true
-  };
-  const i = products.findIndex(p => p.id === data.id);
-  if (i > -1) products[i] = data; else products.push(data);
-  saveProducts(); renderAdminProducts(); renderFeatured();
-  closeProductModal(); toast('Product saved');
+  const id = f.id.value || 'p' + Date.now();
+  const existing = products.find(p => p.id === id);
+  const saveButton = f.querySelector('button[type="submit"]');
+  saveButton.disabled = true;
+  saveButton.textContent = 'Uploading...';
+  try {
+    const image = await uploadProductImage(f.imageFile.files[0], id, 'primary') || f.image.value.trim() || existing?.image || '';
+    const image2 = await uploadProductImage(f.image2File.files[0], id, 'hover') || f.image2.value.trim() || existing?.image2 || '';
+    if (!image) throw new Error('Add a primary image URL or choose a local image.');
+
+    const data = {
+      id,
+      name: f.name.value, category: f.category.value, brand: f.brand.value,
+      price: parseInt(f.price.value) || 0, discount: parseInt(f.discount.value) || 0,
+      image, image2, desc: f.desc.value,
+      featured: f.featured.checked, available: existing ? existing.available : true
+    };
+    const i = products.findIndex(p => p.id === data.id);
+    if (i > -1) products[i] = data; else products.push(data);
+    saveProducts(); renderAdminProducts(); renderFeatured();
+    closeProductModal(); toast('Product saved');
+  } catch (error) {
+    toast(error.message);
+  } finally {
+    saveButton.disabled = false;
+    saveButton.textContent = 'Save Product';
+  }
 }
 
 /* ---- Reviews ---- */

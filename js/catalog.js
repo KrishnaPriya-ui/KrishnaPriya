@@ -6,7 +6,7 @@ let currentCategory = 'All';
 window.searchTerm = '';
 
 function renderCatalog() {
-  const grid = document.getElementById('catalogGrid');
+  const  grid = document.getElementById('catalogGrid');
   const empty = document.getElementById('catalogEmpty');
   if (!grid) return;
   let list = products.filter(p => (currentCategory === 'All' || p.category === currentCategory));

@@ -265,12 +265,14 @@ tailwind.config = {
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label class="block text-sm mb-1.5 text-charcoal-soft">Image URL (primary)</label>
-          <input required type="url" name="image" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm" />
+          <label class="block text-sm mb-1.5 text-charcoal-soft">Primary Image</label>
+          <input type="url" name="image" placeholder="Image URL (optional)" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm mb-2" />
+          <input type="file" name="imageFile" accept="image/*" class="w-full text-xs" />
         </div>
         <div>
-          <label class="block text-sm mb-1.5 text-charcoal-soft">Image URL (hover)</label>
-          <input type="url" name="image2" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm" />
+          <label class="block text-sm mb-1.5 text-charcoal-soft">Hover Image</label>
+          <input type="url" name="image2" placeholder="Image URL (optional)" class="w-full bg-beige border border-sand rounded-xl px-4 py-3 text-sm mb-2" />
+          <input type="file" name="image2File" accept="image/*" class="w-full text-xs" />
         </div>
       </div>
       <div>
@@ -291,6 +293,7 @@ tailwind.config = {
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script src="js/data.js"></script>
 <script src="js/shared.js"></script>
 <script src="js/admin.js"></script>

@@ -288,8 +288,7 @@ function productCard(p) {
 function renderFeatured() {
   const grid = document.getElementById('featuredGrid');
   if (!grid) return;
-  const items = products.filter(p => p.featured && p.available).slice(0, 8)
-    .concat(products.filter(p => p.available).slice(0, 8)).slice(0, 8);
+  const items = products.filter(p => p.featured && p.available).slice(0, 8);
   grid.innerHTML = items.map(productCard).join('');
   refreshIcons();
 }

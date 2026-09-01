@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 const projectRoot = new URL('..', import.meta.url);
 const dataText = fs.readFileSync(new URL('js/data.js', projectRoot), 'utf8');
 const adminText = fs.readFileSync(new URL('js/admin.js', projectRoot), 'utf8');
+const sharedText = fs.readFileSync(new URL('js/shared.js', projectRoot), 'utf8');
 const homeText = fs.readFileSync(new URL('index.html', projectRoot), 'utf8');
 
 test('review data and admin management exist for persisted homepage reviews', () => {
@@ -23,4 +24,11 @@ test('admin passcode is shared through Firebase instead of localStorage', () => 
   assert.match(adminText, /await hashAdminPasscode\(val\)|await getAdminPasscode\(\)/);
   assert.doesNotMatch(dataText, /kp_admin_pass|admin123/);
   assert.doesNotMatch(adminText, /kp_admin_pass|getAdminPass\(/);
+});
+
+test('admin products support Firebase Storage uploads without duplicate featured cards', () => {
+  assert.match(dataText, /uploadProductImage|firebase\.storage/);
+  assert.match(adminText, /imageFile|image2File|await uploadProductImage/);
+  assert.match(sharedText, /products\.filter\(p => p\.featured && p\.available\)/);
+  assert.doesNotMatch(sharedText, /\.concat\(products\.filter/);
 });
