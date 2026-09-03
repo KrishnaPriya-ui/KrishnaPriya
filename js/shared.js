@@ -121,6 +121,7 @@ function buildFooter() {
     <div class="max-w-7xl mx-auto px-6 mt-12 pt-6 border-t border-cream/10 text-xs text-cream/40 flex flex-col sm:flex-row justify-between gap-2">
       <p>\u00A9 2026 Krishna Priya Fashion. All rights reserved.</p>
       <p>Women-Owned \u00B7 Wheelchair Accessible \u00B7 In-store Pickup \u00B7 Delivery Available</p>
+        <p>Made by Aaditya Sharma - <a href="tel:+919251100453" class="hover:text-gold-soft">+91 92511 00453</a></p>
     </div>
   </footer>`;
 }
