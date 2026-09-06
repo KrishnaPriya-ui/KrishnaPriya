@@ -31,7 +31,7 @@ function startHero() {
 }
 
 function filterAndGo(cat) {
-  window.location.href = 'catalog.html?category=' + encodeURIComponent(cat);
+  window.open('catalog.html?category=' + encodeURIComponent(cat), '_blank', 'noopener');
 }
 
 function renderReviews() {

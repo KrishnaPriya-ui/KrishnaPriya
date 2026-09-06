@@ -72,9 +72,40 @@ async function uploadProductImage(file, productId, imageType) {
   if (!file.type.startsWith('image/')) throw new Error('Please select an image file.');
   if (file.size > 5 * 1024 * 1024) throw new Error('Each image must be smaller than 5 MB.');
 
-  const storageRef = window.firebase.storage().ref(`products/${productId}/${imageType}-${Date.now()}-${file.name}`);
-  await storageRef.put(file);
-  return storageRef.getDownloadURL();
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  const storageRef = window.firebase.storage().ref(`products/${productId}/${imageType}-${Date.now()}-${safeName}`);
+  const uploadTask = storageRef.put(file);
+  const uploadResult = new Promise((resolve, reject) => {
+    uploadTask.on('state_changed', null, reject, () => resolve(uploadTask.snapshot));
+  });
+  const timeout = new Promise((resolve, reject) => {
+    setTimeout(() => reject(new Error('Image upload timed out. Saving small images locally in Firebase instead.')), 10000);
+  });
+
+  try {
+    await Promise.race([uploadResult, timeout]);
+    return await Promise.race([
+      storageRef.getDownloadURL(),
+      new Promise((resolve, reject) => setTimeout(() => reject(new Error('Could not get the uploaded image URL from Firebase Storage.')), 15000))
+    ]);
+  } catch (error) {
+    if (file.size <= 700 * 1024) {
+      console.warn('Firebase Storage upload failed; saving this small image in Firestore instead.', error);
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Could not read the selected image.'));
+        reader.readAsDataURL(file);
+      });
+    }
+    const messages = {
+      'storage/unauthorized': 'Firebase Storage denied this upload. Update your Storage rules.',
+      'storage/unauthenticated': 'Firebase requires authentication for Storage uploads.',
+      'storage/bucket-not-found': 'Firebase Storage is not enabled for this project.',
+      'storage/retry-limit-exceeded': 'Firebase Storage could not complete the upload. Try again.'
+    };
+    throw new Error(messages[error.code] || error.message || 'Image upload failed.');
+  }
 }
 
 function persistCollectionToFirebase(name, items) {

@@ -9,7 +9,6 @@ const NAV_LINKS = [
   { label: 'Catalog', page: 'catalog.html', view: 'catalog' },
   { label: 'About Us', page: 'about.html', view: 'about' },
   { label: 'Enquiry & Contact', page: 'contact.html', view: 'contact' },
-  { label: 'Admin', page: 'admin.html', view: 'admin' },
 ];
 
 /* ---- Determine current page from filename ---- */

@@ -27,7 +27,11 @@ function renderCatalog() {
   refreshIcons();
 }
 
-function setCategory(cat) {
+function setCategory(cat, openNewTab = true) {
+  if (openNewTab && cat !== currentCategory) {
+    window.open('catalog.html?category=' + encodeURIComponent(cat), '_blank', 'noopener');
+    return;
+  }
   currentCategory = cat;
   document.querySelectorAll('.cat-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.cat === cat);
@@ -50,6 +54,6 @@ window.addEventListener('DOMContentLoaded', () => {
     if (si) si.value = search;
   }
 
-  setCategory(currentCategory);
+  setCategory(currentCategory, false);
   refreshIcons();
 });

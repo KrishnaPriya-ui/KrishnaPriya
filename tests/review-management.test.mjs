@@ -8,6 +8,9 @@ const adminText = fs.readFileSync(new URL('js/admin.js', projectRoot), 'utf8');
 const sharedText = fs.readFileSync(new URL('js/shared.js', projectRoot), 'utf8');
 const adminHtmlText = fs.readFileSync(new URL('admin.html', projectRoot), 'utf8');
 const homeText = fs.readFileSync(new URL('index.html', projectRoot), 'utf8');
+const homeScriptText = fs.readFileSync(new URL('js/home.js', projectRoot), 'utf8');
+const catalogScriptText = fs.readFileSync(new URL('js/catalog.js', projectRoot), 'utf8');
+const viteConfigText = fs.readFileSync(new URL('vite.config.js', projectRoot), 'utf8');
 
 test('review data and admin management exist for persisted homepage reviews', () => {
   assert.match(dataText, /DEFAULT_REVIEWS|loadReviews|saveReviews/);
@@ -34,4 +37,18 @@ test('admin products support Firebase Storage uploads without duplicate featured
   assert.match(adminHtmlText, /type="submit"[^>]*>Save Product/);
   assert.match(sharedText, /products\.filter\(p => p\.featured && p\.available\)/);
   assert.doesNotMatch(sharedText, /\.concat\(products\.filter/);
+});
+
+test('public navigation hides admin and category links open new tabs', () => {
+  assert.doesNotMatch(sharedText, /label: 'Admin'/);
+  assert.match(homeScriptText, /window\.open\(.*catalog\.html\?category/);
+  assert.match(catalogScriptText, /window\.open\(.*catalog\.html\?category/);
+  assert.match(viteConfigText, /req\.url === '\/admin'|req\.url === '\/admin\/'/);
+});
+
+test('product image uploads report Firebase failures instead of hanging forever', () => {
+  assert.match(dataText, /uploadTask\.on\('state_changed'/);
+  assert.match(dataText, /Image upload timed out/);
+  assert.match(dataText, /storage\/unauthorized/);
+  assert.match(dataText, /saving this small image in Firestore instead/);
 });
