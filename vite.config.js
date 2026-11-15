@@ -1,4 +1,6 @@
 import { defineConfig } from 'vite';
+import { readdirSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 export default defineConfig({
   root: '.',
@@ -12,6 +14,18 @@ export default defineConfig({
           next();
         });
       };
+    },
+  }, {
+    name: 'copy-classic-scripts',
+    apply: 'build',
+    generateBundle() {
+      for (const file of readdirSync(resolve('js')).filter(file => file.endsWith('.js'))) {
+        this.emitFile({
+          type: 'asset',
+          fileName: `js/${file}`,
+          source: readFileSync(resolve('js', file)),
+        });
+      }
     },
   }],
   server: {

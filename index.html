@@ -85,6 +85,40 @@ tailwind.config = {
   <div id="featuredGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-7"></div>
 </div>
 
+<!-- NEW ARRIVALS -->
+<section class="bg-beige border-y border-sand">
+  <div class="max-w-7xl mx-auto px-6 py-20">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
+      <div>
+        <p class="text-terracotta tracking-[0.25em] uppercase text-xs mb-3">Just In</p>
+        <h2 class="font-display text-4xl sm:text-5xl">New Arrivals</h2>
+      </div>
+      <a href="catalog.html" class="text-sm text-charcoal-soft hover:text-terracotta transition flex items-center gap-1.5">
+        Shop all <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+    <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filter new arrivals by price">
+      <button type="button" class="new-arrival-filter" data-price-filter="all" aria-pressed="true" onclick="filterNewArrivals('all')">All prices</button>
+      <button type="button" class="new-arrival-filter" data-price-filter="under-999" aria-pressed="false" onclick="filterNewArrivals('under-999')">Under ₹999</button>
+      <button type="button" class="new-arrival-filter" data-price-filter="under-1999" aria-pressed="false" onclick="filterNewArrivals('under-1999')">Under ₹1,999</button>
+      <button type="button" class="new-arrival-filter" data-price-filter="1999-plus" aria-pressed="false" onclick="filterNewArrivals('1999-plus')">₹1,999 &amp; above</button>
+    </div>
+    <div id="newArrivalsGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-7"></div>
+    <p id="newArrivalsEmpty" class="hidden text-center py-12 text-muted">No new arrivals match this price range.</p>
+  </div>
+</section>
+
+<!-- EXCHANGE POLICY -->
+<section class="max-w-7xl mx-auto px-6 py-12">
+  <div class="rounded-2xl border border-sand bg-cream p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+    <div>
+      <h2 class="font-display text-2xl mb-2">Exchange &amp; Returns</h2>
+      <p class="text-sm text-charcoal-soft leading-relaxed">A ₹149 reverse-shipping charge applies per exchanged product. If you receive a damaged or incorrect product, contact us within 72 hours through our Contact Us page.</p>
+    </div>
+    <a href="contact.html" class="shrink-0 bg-charcoal hover:bg-charcoal-soft text-cream px-6 py-3 rounded-full text-sm font-medium transition text-center">Contact Us</a>
+  </div>
+</section>
+
 <!-- ABOUT TEASER -->
 <div class="bg-beige">
   <div class="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
