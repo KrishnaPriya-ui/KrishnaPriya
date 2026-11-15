@@ -20,5 +20,18 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    rollupOptions: {
+      input: [
+        'index.html',
+        'catalog.html',
+        'about.html',
+        'contact.html',
+        'admin.html',
+        'ethnic-wear.html',
+        'western-wear.html',
+        'nightwear.html',
+        'cosmetics-jewelry.html',
+      ],
+    },
   },
 });
