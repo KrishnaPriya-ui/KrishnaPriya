@@ -111,8 +111,8 @@ function buildFooter() {
         <h4 class="text-cream font-medium mb-4 text-sm tracking-wide uppercase">Contact</h4>
         <ul class="space-y-2 text-sm text-cream/60">
           <li class="flex gap-2"><i data-lucide="map-pin" class="w-4 h-4 shrink-0 mt-0.5"></i> VivaCity Mall, Jagatpura, Jaipur</li>
-          <li class="flex gap-2"><i data-lucide="phone" class="w-4 h-4 shrink-0 mt-0.5"></i> <a href="tel:+919251200453" class="hover:text-gold-soft">+91 92512 00453</a></li>
-          <li class="flex gap-2"><i data-lucide="message-circle" class="w-4 h-4 shrink-0 mt-0.5"></i> <a href="https://wa.me/917062601601" target="_blank" class="hover:text-gold-soft">+91 70626 01601</a></li>
+          <li class="flex gap-2"><i data-lucide="phone" class="w-4 h-4 shrink-0 mt-0.5"></i> <a href="tel:${PHONE}" class="hover:text-gold-soft">${PHONE_DISPLAY}</a></li>
+          <li class="flex gap-2"><i data-lucide="message-circle" class="w-4 h-4 shrink-0 mt-0.5"></i> <a href="https://wa.me/${WHATSAPP_CHAT}" target="_blank" class="hover:text-gold-soft">${PHONE_DISPLAY}</a></li>
           <li class="flex gap-2"><i data-lucide="clock" class="w-4 h-4 shrink-0 mt-0.5"></i> 10:30 AM \u2013 9:00 PM Daily</li>
         </ul>
       </div>

@@ -3,6 +3,35 @@
    ============================================================ */
 .hero-dots button.active { background: #FDFBF7 !important; }
 
+.new-arrival-filter {
+  border: 1px solid #E5D9C6;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  min-height: 44px;
+  color: #3D3A36;
+  cursor: pointer;
+  font-size: 0.875rem;
+  touch-action: manipulation;
+  white-space: nowrap;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.new-arrival-filter:hover:not([aria-pressed="true"]) {
+  background: #F1E9DD;
+  border-color: #B96E4B;
+}
+
+.new-arrival-filter[aria-pressed="true"] {
+  background: #1A1A1A;
+  border-color: #1A1A1A;
+  color: #FDFBF7;
+}
+
+.new-arrival-filter:focus-visible {
+  outline: 2px solid #B96E4B;
+  outline-offset: 2px;
+}
+
 .review-stats {
   display: grid;
   gap: 0.8rem;

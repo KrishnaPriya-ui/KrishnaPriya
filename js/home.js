@@ -9,6 +9,7 @@ const heroData = [
 ];
 
 let heroIndex = 0, heroTimer;
+let newArrivalPriceFilter = 'all';
 
 function setHero(i) {
   heroIndex = i;
@@ -30,9 +31,44 @@ function startHero() {
   heroTimer = setInterval(() => setHero((heroIndex + 1) % heroData.length), 5500);
 }
 
-function filterAndGo(cat) {
-  window.open('catalog.html?category=' + encodeURIComponent(cat), '_blank', 'noopener');
+function renderNewArrivals() {
+  const grid = document.getElementById('newArrivalsGrid');
+  const empty = document.getElementById('newArrivalsEmpty');
+  if (!grid) return;
+
+  let items = products
+    .map((product, index) => ({
+      product,
+      index,
+      arrival: Number(product.createdAt) || Number(String(product.id || '').replace(/\D/g, '')) || index,
+    }))
+    .filter(({ product }) => product.available)
+    .sort((a, b) => b.arrival - a.arrival || b.index - a.index)
+    .map(({ product }) => product);
+
+  if (newArrivalPriceFilter === 'under-999') {
+    items = items.filter(product => finalPrice(product) < 999);
+  } else if (newArrivalPriceFilter === 'under-1999') {
+    items = items.filter(product => finalPrice(product) < 1999);
+  } else if (newArrivalPriceFilter === '1999-plus') {
+    items = items.filter(product => finalPrice(product) >= 1999);
+  }
+
+  grid.innerHTML = items.slice(0, 8).map(productCard).join('');
+  if (empty) empty.classList.toggle('hidden', items.length > 0);
+  document.querySelectorAll('.new-arrival-filter').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.priceFilter === newArrivalPriceFilter));
+  });
+  refreshIcons();
 }
+
+function filterNewArrivals(priceFilter) {
+  newArrivalPriceFilter = priceFilter;
+  renderNewArrivals();
+}
+
+window.renderNewArrivals = renderNewArrivals;
+window.filterNewArrivals = filterNewArrivals;
 
 function renderReviews() {
   const container = document.getElementById('reviewsGrid');
@@ -86,6 +122,7 @@ window.addEventListener('DOMContentLoaded', () => {
   setHero(0);
   startHero();
   renderFeatured();
+  renderNewArrivals();
   renderReviews();
   refreshIcons();
 });

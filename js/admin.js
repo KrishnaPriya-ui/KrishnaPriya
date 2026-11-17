@@ -124,10 +124,13 @@ async function saveProduct(e) {
       image, image2, desc: f.desc.value,
       featured: f.featured.checked, available: existing ? existing.available : true
     };
+    if (existing && existing.createdAt) data.createdAt = existing.createdAt;
+    else if (!existing) data.createdAt = Date.now();
     const i = products.findIndex(p => p.id === data.id);
     if (i > -1) products[i] = data; else products.push(data);
     await saveProducts();
     renderAdminProducts(); renderFeatured();
+    if (typeof window.renderNewArrivals === 'function') window.renderNewArrivals();
     closeProductModal(); toast('Product saved');
   } catch (error) {
     toast(error.message);

@@ -27,11 +27,7 @@ function renderCatalog() {
   refreshIcons();
 }
 
-function setCategory(cat, openNewTab = true) {
-  if (openNewTab && cat !== currentCategory) {
-    window.open('catalog.html?category=' + encodeURIComponent(cat), '_blank', 'noopener');
-    return;
-  }
+function setCategory(cat) {
   currentCategory = cat;
   document.querySelectorAll('.cat-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.cat === cat);
@@ -45,7 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initShared();
 
   const params = new URLSearchParams(window.location.search);
-  const cat = params.get('category');
+  const cat = params.get('category') || document.body.dataset.category;
   const search = params.get('search');
   if (cat) currentCategory = cat;
   if (search) {
@@ -54,6 +50,6 @@ window.addEventListener('DOMContentLoaded', () => {
     if (si) si.value = search;
   }
 
-  setCategory(currentCategory, false);
+  setCategory(currentCategory);
   refreshIcons();
 });

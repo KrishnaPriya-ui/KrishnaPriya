@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Krishna Priya Fashion — Designer Boutique for Women | Jaipur</title>
 <meta name="description" content="Krishna Priya Fashion — Premier women-owned designer boutique in Jagatpura, Jaipur. Cotton Kurtis, Oversized Suits, Nightwear, Partywear & more. Visit us at VivaCity Mall." />
+<link rel="canonical" href="https://krishnapriyafashion.in/" />
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,7 +23,8 @@ tailwind.config = {
   }},
 };
 </script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CSh0hAQr.css">
+  <link rel="stylesheet" crossorigin href="./assets/index-CGHlGjVo.css">
+  <link rel="stylesheet" crossorigin href="./assets/global-CaxiEp_t.css">
 </head>
 <body class="bg-cream text-charcoal">
 
@@ -83,6 +85,40 @@ tailwind.config = {
   <div id="featuredGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-7"></div>
 </div>
 
+<!-- NEW ARRIVALS -->
+<section class="bg-beige border-y border-sand">
+  <div class="max-w-7xl mx-auto px-6 py-20">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
+      <div>
+        <p class="text-terracotta tracking-[0.25em] uppercase text-xs mb-3">Just In</p>
+        <h2 class="font-display text-4xl sm:text-5xl">New Arrivals</h2>
+      </div>
+      <a href="catalog.html" class="text-sm text-charcoal-soft hover:text-terracotta transition flex items-center gap-1.5">
+        Shop all <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+    <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filter new arrivals by price">
+      <button type="button" class="new-arrival-filter" data-price-filter="all" aria-pressed="true" onclick="filterNewArrivals('all')">All prices</button>
+      <button type="button" class="new-arrival-filter" data-price-filter="under-999" aria-pressed="false" onclick="filterNewArrivals('under-999')">Under ₹999</button>
+      <button type="button" class="new-arrival-filter" data-price-filter="under-1999" aria-pressed="false" onclick="filterNewArrivals('under-1999')">Under ₹1,999</button>
+      <button type="button" class="new-arrival-filter" data-price-filter="1999-plus" aria-pressed="false" onclick="filterNewArrivals('1999-plus')">₹1,999 &amp; above</button>
+    </div>
+    <div id="newArrivalsGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-7"></div>
+    <p id="newArrivalsEmpty" class="hidden text-center py-12 text-muted">No new arrivals match this price range.</p>
+  </div>
+</section>
+
+<!-- EXCHANGE POLICY -->
+<section class="max-w-7xl mx-auto px-6 py-12">
+  <div class="rounded-2xl border border-sand bg-cream p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+    <div>
+      <h2 class="font-display text-2xl mb-2">Exchange &amp; Returns</h2>
+      <p class="text-sm text-charcoal-soft leading-relaxed">A ₹149 reverse-shipping charge applies per exchanged product. If you receive a damaged or incorrect product, contact us within 72 hours through our Contact Us page.</p>
+    </div>
+    <a href="contact.html" class="shrink-0 bg-charcoal hover:bg-charcoal-soft text-cream px-6 py-3 rounded-full text-sm font-medium transition text-center">Contact Us</a>
+  </div>
+</section>
+
 <!-- ABOUT TEASER -->
 <div class="bg-beige">
   <div class="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
@@ -112,26 +148,26 @@ tailwind.config = {
     <h2 class="font-display text-4xl sm:text-5xl">Find Your Style</h2>
   </div>
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
-    <button onclick="filterAndGo('Ethnic Wear')" class="group relative aspect-[3/4] rounded-2xl overflow-hidden reveal">
-      <img src="https://images.pexels.com/photos/28213774/pexels-photo-28213774.jpeg?auto=compress&cs=tinysrgb&w=700" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+    <a href="ethnic-wear.html" class="group relative aspect-[3/4] rounded-2xl overflow-hidden reveal">
+      <img src="https://images.pexels.com/photos/28213774/pexels-photo-28213774.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Ethnic wear at Krishna Priya Fashion" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
       <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent"></div>
       <span class="absolute bottom-4 left-4 text-cream font-display text-xl">Ethnic Wear</span>
-    </button>
-    <button onclick="filterAndGo('Western Wear')" class="group relative aspect-[3/4] rounded-2xl overflow-hidden reveal">
-      <img src="https://images.pexels.com/photos/6138908/pexels-photo-6138908.jpeg?auto=compress&cs=tinysrgb&w=700" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+    </a>
+    <a href="western-wear.html" class="group relative aspect-[3/4] rounded-2xl overflow-hidden reveal">
+      <img src="https://images.pexels.com/photos/6138908/pexels-photo-6138908.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Western wear at Krishna Priya Fashion" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
       <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent"></div>
       <span class="absolute bottom-4 left-4 text-cream font-display text-xl">Western Wear</span>
-    </button>
-    <button onclick="filterAndGo('Nightwear')" class="group relative aspect-[3/4] rounded-2xl overflow-hidden reveal">
-      <img src="https://images.pexels.com/photos/6598666/pexels-photo-6598666.jpeg?auto=compress&cs=tinysrgb&w=700" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+    </a>
+    <a href="nightwear.html" class="group relative aspect-[3/4] rounded-2xl overflow-hidden reveal">
+      <img src="https://images.pexels.com/photos/6598666/pexels-photo-6598666.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Nightwear at Krishna Priya Fashion" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
       <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent"></div>
       <span class="absolute bottom-4 left-4 text-cream font-display text-xl">Nightwear</span>
-    </button>
-    <button onclick="filterAndGo('Cosmetics & Jewelry')" class="group relative aspect-[3/4] rounded-2xl overflow-hidden reveal">
-      <img src="https://images.pexels.com/photos/8751528/pexels-photo-8751528.jpeg?auto=compress&cs=tinysrgb&w=700" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+    </a>
+    <a href="cosmetics-jewelry.html" class="group relative aspect-[3/4] rounded-2xl overflow-hidden reveal">
+      <img src="https://images.pexels.com/photos/8751528/pexels-photo-8751528.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Cosmetics and jewelry at Krishna Priya Fashion" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
       <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent"></div>
       <span class="absolute bottom-4 left-4 text-cream font-display text-xl">Cosmetics &amp; Jewelry</span>
-    </button>
+    </a>
   </div>
 </div>
 
@@ -158,11 +194,11 @@ tailwind.config = {
       <div class="space-y-4 text-charcoal-soft">
         <div class="flex gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i><span>K-01, Ground Floor, VivaCity Mall, Near Akshaya Patra Chauraha, Mahal Road, Hare Krishna Marg, Jagatpura, Jaipur, Rajasthan 302017</span></div>
         <div class="flex gap-3"><i data-lucide="phone" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i><a href="tel:+919251200453" class="hover:text-terracotta">+91 92512 00453</a></div>
-        <div class="flex gap-3"><i data-lucide="message-circle" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i><a href="https://wa.me/917062601601" target="_blank" class="hover:text-terracotta">+91 70626 01601 (WhatsApp)</a></div>
+        <div class="flex gap-3"><i data-lucide="message-circle" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i><a href="https://wa.me/919251200453" target="_blank" class="hover:text-terracotta">+91 92512 00453 (WhatsApp)</a></div>
         <div class="flex gap-3"><i data-lucide="clock" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i><span>Monday – Sunday: 10:30 AM – 9:00 PM</span></div>
       </div>
       <div class="flex flex-wrap gap-3 mt-8">
-        <a href="https://wa.me/917062601601" target="_blank" class="bg-terracotta hover:bg-terracotta-deep text-cream px-6 py-3 rounded-full text-sm font-medium transition flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> Chat on WhatsApp</a>
+        <a href="https://wa.me/919251200453" target="_blank" class="bg-terracotta hover:bg-terracotta-deep text-cream px-6 py-3 rounded-full text-sm font-medium transition flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> Chat on WhatsApp</a>
         <a href="tel:+919251200453" class="border border-charcoal hover:bg-charcoal hover:text-cream text-charcoal px-6 py-3 rounded-full text-sm font-medium transition flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> Call Now</a>
       </div>
     </div>
@@ -177,8 +213,8 @@ tailwind.config = {
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="js/data.js"></script>
-<script src="js/shared.js"></script>
-<script src="js/home.js"></script>
+<script src="js/data.js?v=4"></script>
+<script src="js/shared.js?v=4"></script>
+<script src="js/home.js?v=2"></script>
 </body>
 </html>

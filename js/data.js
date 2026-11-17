@@ -4,9 +4,10 @@
    product catalog, cart, wishlist, enquiries, orders, settings.
    ============================================================ */
 
-const WHATSAPP_ORDER = '917062601601';
-const WHATSAPP_CHAT = '917062601601';
+const WHATSAPP_ORDER = '919251200453';
+const WHATSAPP_CHAT = '919251200453';
 const PHONE = '+919251200453';
+const PHONE_DISPLAY = '+91 92512 00453';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyChS_IqLnv4xT-ecChHgIuQD5Lc5Z4fSuw',
@@ -135,6 +136,7 @@ function applyRemoteCollection(name, list) {
     products = list;
     localStorage.setItem('kp_products', JSON.stringify(products));
     if (typeof window.renderFeatured === 'function') window.renderFeatured();
+    if (typeof window.renderNewArrivals === 'function') window.renderNewArrivals();
     if (typeof window.renderCatalog === 'function') window.renderCatalog();
     if (typeof window.renderAdminProducts === 'function') window.renderAdminProducts();
   }
